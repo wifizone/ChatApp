@@ -1,0 +1,8 @@
+SampleChatApp.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+Pods
+Podfile.lock
+SampleChatApp.xcodeproj/xcshareddata/
+SampleChatApp/Core/.DS_Store
+GoogleService-Info.plist
+SampleChatApp.xcworkspace/xcuserdata
+SampleChatApp.xcodeproj/xcuserdata/*
