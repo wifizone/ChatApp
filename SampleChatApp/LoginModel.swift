@@ -6,8 +6,10 @@
 //  Copyright © 2020 anton.poluianov. All rights reserved.
 //
 
+import FirebaseAuth
+
 struct LoginModel {
 	struct User {
-		let email: String
+		let user: FirebaseAuth.User
 	}
 }

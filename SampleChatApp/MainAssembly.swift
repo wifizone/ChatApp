@@ -32,6 +32,14 @@ final class MainAssembly {
         return tabBarViewController
     }
 
+	func makeChatViewController() -> UIViewController {
+		let vc = ChatViewController()
+		vc.user2Name = "MMM"
+		vc.user2ImgUrl = "https://firebasestorage.googleapis.com/v0/b/chatsample-93b85.appspot.com/o/users%2FB3MjPI3BHwezILaeRm96cKkTAm12%2Favatar.jpg?alt=media&token=b2913ec3-844c-4f6e-80e0-2b063c6889f6"
+		vc.user2UID = "B3MjPI3BHwezILaeRm96cKkTAm12"
+		return vc
+	}
+
     private func setRootViewControllerIfNeeded(_ viewController: UITabBarController, isRoot: Bool) {
         if isRoot {
             router?.rootViewController = viewController

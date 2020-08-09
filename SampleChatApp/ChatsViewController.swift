@@ -64,7 +64,11 @@ extension ChatsViewController: ChatsViewControllable {
     }
 }
 
-extension ChatsViewController: UITableViewDelegate {}
+extension ChatsViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		interactor.didSelectChat()
+	}
+}
 
 extension ChatsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -8,7 +8,9 @@
 
 import UIKit
 
-protocol MainRouting {}
+protocol MainRouting {
+	func routeToChat()
+}
 
 final class MainRouter {
 
@@ -22,4 +24,9 @@ final class MainRouter {
     }
 }
 
-extension MainRouter: MainRouting {}
+extension MainRouter: MainRouting {
+	func routeToChat() {
+		guard let chatVC = assembly?.makeChatViewController() else { return }
+		chatsNavigationController?.pushViewController(chatVC, animated: true)
+	}
+}

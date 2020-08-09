@@ -45,8 +45,13 @@ extension AppDelegate: AuthenticationDelegate {
 		if user == nil {
 			guard let loginViewController = assembly?.login.makeLoginViewController(isRootViewController: true) else { return }
 			self.setupRootViewController(loginViewController)
+		} else if user?.displayName == nil || user?.photoURL == nil {
+			guard let user = user,
+				let initProfileViewController = assembly?.login.makeProfileInitSetupViewController(user: user, isRootViewController: true) else { return
+			}
+			self.setupRootViewController(initProfileViewController)
 		} else {
-            guard let mainViewController = assembly?.main.makeMainViewController(isRootViewController: true) else { return }
+			guard let mainViewController = assembly?.main.makeMainViewController(isRootViewController: true) else { return }
 			self.setupRootViewController(mainViewController)
 		}
 	}

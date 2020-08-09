@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol LoginRouting {
-	func routeToProfileInitSetup()
+	func routeToProfileInitSetup(user: User)
+	func finishFlow()
 }
 
 final class LoginRouter {
@@ -24,14 +26,18 @@ final class LoginRouter {
 }
 
 extension LoginRouter: LoginRouting {
-	func routeToProfileInitSetup() {
+	func routeToProfileInitSetup(user: User) {
 		guard let rootViewController = rootViewController else {
 			assertionFailure("rootViewController must be set")
 			return
 		}
 		rootViewController.modalPresentationStyle = .overFullScreen
-		if let viewController = assembly?.makeProfileInitSetupViewController() {
+		if let viewController = assembly?.makeProfileInitSetupViewController(user: user, isRootViewController: false) {
 			rootViewController.present(viewController, animated: true)
 		}
+	}
+
+	func finishFlow() {
+		
 	}
 }

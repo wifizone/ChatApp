@@ -6,10 +6,12 @@
 //  Copyright © 2020 anton.poluianov. All rights reserved.
 //
 
+import FirebaseAuth
+
 protocol LoginInteracting: AnyObject {
 	func didTapRegister(email: String?, password: String?)
 	func didTapLogin(email: String?, password: String?)
-	func didFinishLogin()
+	func didFinishLogin(user: User)
 }
 
 final class LoginInteractor {
@@ -82,7 +84,7 @@ extension LoginInteractor: LoginInteracting {
 		}
 	}
 
-	func didFinishLogin() {
-		router?.routeToProfileInitSetup()
+	func didFinishLogin(user: User) {
+		router?.routeToProfileInitSetup(user: user)
 	}
 }

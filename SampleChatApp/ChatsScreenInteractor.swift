@@ -10,6 +10,7 @@ import Foundation
 
 protocol ChatsScreenInteracting: AnyObject {
     func didLoad()
+	func didSelectChat()
 }
 
 final class ChatsScreenInteractor {
@@ -28,4 +29,8 @@ extension ChatsScreenInteractor: ChatsScreenInteracting {
         // Download
         presenter.didLoad(chatModels: ChatScreenMocks.get())
     }
+
+	func didSelectChat() {
+		router?.routeToChat()
+	}
 }

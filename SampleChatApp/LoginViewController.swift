@@ -139,9 +139,9 @@ extension LoginViewController: LoginViewControllable {
 
 	func showUpdate(update: Result<LoginViewModel.Login, LoginViewModel.LoginError>) {
 		switch(update) {
-		case .success:
+		case let .success(user):
 			showAlert(for: "Login success") { [weak self] _ in
-				self?.interactor.didFinishLogin()
+				self?.interactor.didFinishLogin(user: user.user)
 			}
 		case let .failure(error):
 			switch error {

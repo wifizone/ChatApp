@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 final class LoginAssembly {
 
@@ -31,12 +32,16 @@ final class LoginAssembly {
 		return viewController
 	}
 
-	func makeProfileInitSetupViewController() -> UIViewController {
+	func makeProfileInitSetupViewController(user: User, isRootViewController: Bool) -> UIViewController {
 		let presenter = ProfileInitSetupPresenter()
 		let interactor = ProfileInitSetupInteractor(router: router,
-													presenter: presenter)
+													presenter: presenter,
+													storageService: ProfileStorageService(),
+													authenticationService: authenticationService,
+													user: user)
 		let viewController = ProfileInitSetupViewController(interactor: interactor)
 		presenter.viewController = viewController
+		setRootViewControllerIfNeeded(viewController, isRoot: isRootViewController)
 		return viewController
 	}
 
