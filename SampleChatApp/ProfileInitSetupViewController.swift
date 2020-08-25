@@ -14,6 +14,15 @@ final class ProfileInitSetupViewController: UIViewController  {
 
 	private let interactor: ProfileInitSetupInteracting
 
+    private let stackView: UIStackView = {
+        let stack = UIStackView().disableMasks()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.spacing = 30
+        stack.alignment = .center
+        return stack
+    }()
+
 	private lazy var nameTextField: UITextField = {
 		let field = UITextField(frame: .zero).disableMasks()
 		field.autocapitalizationType = .none
@@ -26,6 +35,7 @@ final class ProfileInitSetupViewController: UIViewController  {
 		let button = UIButton().disableMasks()
 		let image = UIImage(named: "user")
 		button.setImage(image, for: .normal)
+        button.imageView?.disableMasks()
 		button.addTarget(self, action: #selector(didTapAvatar), for: .touchUpInside)
 		return button
 	}()
@@ -38,7 +48,12 @@ final class ProfileInitSetupViewController: UIViewController  {
 		return button
 	}()
 
+    private let interestedInView = ChooseInterestedInView(interests: ["Men", "Women", "Other"]).disableMasks()
+    private let genderView = ChoiceGenderView(genders: ["Male", "Female"]).disableMasks()
+    private let choiceAgeView = ChoiceAgeView().disableMasks()
+
 	private let imagePicker = UIImagePickerController()
+    private let activityIndicator = UIActivityIndicatorView()
 
 	init(interactor: ProfileInitSetupInteracting) {
 		self.interactor = interactor
@@ -56,26 +71,23 @@ final class ProfileInitSetupViewController: UIViewController  {
 
 	private func setupView() {
 		view.backgroundColor = .white
-		view.addSubviews([avatarButton, nameTextField, doneButton])
+        [avatarButton, nameTextField, genderView, choiceAgeView, interestedInView, doneButton].forEach({ stackView.addArrangedSubview($0) })
+		view.addSubviews([stackView, activityIndicator])
 	}
 
 	private func setupConstraints() {
 		let topScreenSafeValue = UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0
-		let bottomScreenSafeValue = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-
+        guard let imageView = avatarButton.imageView else { return }
 		NSLayoutConstraint.activate([
-			avatarButton.topAnchor.constraint(equalTo: view.topAnchor, constant: topScreenSafeValue),
-			avatarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			avatarButton.heightAnchor.constraint(equalToConstant: 160),
-			avatarButton.widthAnchor.constraint(equalToConstant: 160),
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: topScreenSafeValue),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-			nameTextField.topAnchor.constraint(equalTo: avatarButton.bottomAnchor, constant: 30),
-			nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-			nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 160),
+            imageView.widthAnchor.constraint(equalToConstant: 160),
+            avatarButton.heightAnchor.constraint(equalToConstant: 160),
 
-			doneButton.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
-			doneButton.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
-			doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -bottomScreenSafeValue)
+            choiceAgeView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 2 * 20)
 		])
 	}
 
@@ -86,7 +98,13 @@ final class ProfileInitSetupViewController: UIViewController  {
 	}
 
 	@objc private func didTapDone() {
-		interactor.didTapDone(displayName: nameTextField.text) { [unowned self] error in
+        activityIndicator.startAnimating()
+        let profile = InitialProfileParameters(displayName: nameTextField.text,
+                                               gender: genderView.selectedGender.popFirst(),
+                                               age: choiceAgeView.ageString,
+                                               interestedInGenders: interestedInView.selectedInterests)
+        interactor.didTapDone(profile: profile) { [unowned self] error in
+            self.activityIndicator.stopAnimating()
 			switch error {
 			case .changeProfileRequestFailure, .uploadAvatarFailure:
 				self.showAlert(for: "Error updating profile")
@@ -94,9 +112,13 @@ final class ProfileInitSetupViewController: UIViewController  {
 				self.showAlert(for: "Please upload avatar")
 			case .noDisplayNameEntered:
 				self.showAlert(for: "Please enter name")
+            case .noGenderEntered:
+                break
+            case .noInterestedInGendersEntered:
+                break
 			case .none:
 				self.showAlert(for: "Success")
-			}
+            }
 		}
 	}
 }

@@ -16,25 +16,25 @@ enum ChatServiceError: Error {
 }
 
 protocol ChatServiceProtocol: AnyObject {
-	func getChatsOfCurrentUser(user: User, completion: @escaping (Result<ChatsWithUsersResponse.Chats, ChatServiceError>) -> Void)
+	func getChatUsers(of user: User, completion: @escaping (Result<ChatsWithUsersResponse.Chats, ChatServiceError>) -> Void)
 }
 
 final class ChatService: ChatServiceProtocol {
 
 	private var chatsCollection = Firestore.firestore().collection("Chats")
 
-	func getChatsOfCurrentUser(user: User, completion: @escaping (Result<ChatsWithUsersResponse.Chats, ChatServiceError>) -> Void) {
+	func getChatUsers(of user: User, completion: @escaping (Result<ChatsWithUsersResponse.Chats, ChatServiceError>) -> Void) {
 		let userChatsQuery = chatsCollection.whereField("users", arrayContains: user.uid)
 		userChatsQuery.getDocuments { [unowned self] (snapshot, error) in
 			guard error == nil else {
 				completion(.failure(.retrievingChats))
 				return
 			}
-			guard !(snapshot?.documents.isEmpty ?? true) else {
+			guard let documents = snapshot?.documents else {
 				completion(.failure(.noChats))
 				return
 			}
-			
+            
 		}
 	}
 }

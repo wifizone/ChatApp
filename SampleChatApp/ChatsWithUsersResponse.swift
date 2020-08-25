@@ -17,9 +17,6 @@ struct ChatsWithUsersResponse {
     struct ChatWithUser {
 		let userID: UUID
         let name: String
-        let lastMessage: String
         let avatarURL: URL?
-        let time: String
-        let unreadMessagesCount: UInt
     }
 }

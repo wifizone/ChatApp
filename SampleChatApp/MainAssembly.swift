@@ -21,7 +21,9 @@ final class MainAssembly {
     func makeMainViewController(isRootViewController: Bool) -> UIViewController {
         let presenter = ChatsViewControllerPresenter()
         let interactor = ChatsScreenInteractor(router: router,
-                                               presenter: presenter)
+                                               presenter: presenter,
+                                               chatService: ChatService(),
+                                               userService: UserService())
         let viewController = ChatsViewController(interactor: interactor)
         let chatsNavigationController = UINavigationController(rootViewController: viewController)
         presenter.viewController = viewController

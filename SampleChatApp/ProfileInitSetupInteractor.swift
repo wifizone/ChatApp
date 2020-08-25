@@ -12,13 +12,22 @@ import FirebaseAuth
 enum ProfileInitError: Error {
 	case noAvatarImage
 	case noDisplayNameEntered
+    case noGenderEntered
+    case noInterestedInGendersEntered
 	case uploadAvatarFailure
 	case changeProfileRequestFailure
 }
 
+struct InitialProfileParameters {
+    let displayName: String?
+    let gender: String?
+    let age: String
+    let interestedInGenders: Set<String>
+}
+
 protocol ProfileInitSetupInteracting: AnyObject {
 	func didSelectAvatarImage(image: UIImage)
-	func didTapDone(displayName: String?, completion: @escaping (ProfileInitError?) -> Void)
+	func didTapDone(profile: InitialProfileParameters, completion: @escaping (ProfileInitError?) -> Void)
 }
 
 final class ProfileInitSetupInteractor {
@@ -26,6 +35,7 @@ final class ProfileInitSetupInteractor {
 	private let router: LoginRouting?
 	private let storageService: ProfileStorageServiceProtocol
 	private let authenticationService: AuthenticationLogic
+    private let userService: UserServiceProtocol
 	private let user: User
 
 	private var avatarImageData: Data?
@@ -35,11 +45,13 @@ final class ProfileInitSetupInteractor {
 		 presenter: ProfileInitSetupPresentable,
 		 storageService: ProfileStorageServiceProtocol,
 		 authenticationService: AuthenticationLogic,
+         userService: UserServiceProtocol,
 		 user: User) {
 		self.router = router
 		self.presenter = presenter
 		self.storageService = storageService
 		self.authenticationService = authenticationService
+        self.userService = userService
 		self.user = user
 	}
 }
@@ -50,15 +62,16 @@ extension ProfileInitSetupInteractor: ProfileInitSetupInteracting {
 		avatarImageData = image.compressedImageData(expectedSizeInKb: 512)
 	}
 
-	func didTapDone(displayName: String?, completion: @escaping (ProfileInitError?) -> Void) {
+	func didTapDone(profile: InitialProfileParameters, completion: @escaping (ProfileInitError?) -> Void) {
 		guard let avatarImage = avatarImageData else {
 			completion(.noAvatarImage)
 			return
 		}
-		guard let displayName = displayName, displayName.count != 0 else {
+        guard let displayName = profile.displayName, !displayName.isEmpty else {
 			completion(.noDisplayNameEntered)
 			return
 		}
+        
 		storageService.store(avatarImage: avatarImage,
 							 for: user) { [unowned self] resultImageURL in
 								switch resultImageURL {
@@ -78,7 +91,21 @@ extension ProfileInitSetupInteractor: ProfileInitSetupInteracting {
 		if error != nil, let completion = completion {
 			completion(.changeProfileRequestFailure)
 		} else {
-			completion?(nil)
+			createUser()
 		}
 	}
+
+    private func createUser() {
+        userService.createUser(user: user) { [unowned self] error in
+            guard let completion = self.completion else {
+                assertionFailure("Completion must be set")
+                return
+            }
+            if error != nil {
+                completion(.changeProfileRequestFailure)
+            } else {
+                completion(nil)
+            }
+        }
+    }
 }

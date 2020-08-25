@@ -37,7 +37,8 @@ final class LoginAssembly {
 		let interactor = ProfileInitSetupInteractor(router: router,
 													presenter: presenter,
 													storageService: ProfileStorageService(),
-													authenticationService: authenticationService,
+                                                    authenticationService: authenticationService,
+                                                    userService: UserService(),
 													user: user)
 		let viewController = ProfileInitSetupViewController(interactor: interactor)
 		presenter.viewController = viewController

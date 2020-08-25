@@ -25,11 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	private func observeAuthorisedState() {
-		authenticationService = AuthenticationService(auth: Auth.auth(), delegate: self)
-		guard let authenticationService = authenticationService else {
-			assertionFailure("authenticationService should be setup")
-			return
-		}
+        let authenticationService = AuthenticationService(auth: Auth.auth(),
+                                                          delegate: self)
+        self.authenticationService = authenticationService
 		assembly = Assembly(authenticationService: authenticationService)
 	}
 
@@ -45,7 +43,8 @@ extension AppDelegate: AuthenticationDelegate {
 		if user == nil {
 			guard let loginViewController = assembly?.login.makeLoginViewController(isRootViewController: true) else { return }
 			self.setupRootViewController(loginViewController)
-		} else if user?.displayName == nil || user?.photoURL == nil {
+//        } else if !UserService.isNameAndPhotoUploaded() {
+        } else if true {
 			guard let user = user,
 				let initProfileViewController = assembly?.login.makeProfileInitSetupViewController(user: user, isRootViewController: true) else { return
 			}

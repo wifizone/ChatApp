@@ -16,6 +16,13 @@
 		8944607A24C49CB500F82D94 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8944607924C49CB500F82D94 /* MainRouter.swift */; };
 		8944607D24C4C2A400F82D94 /* ChatsHeadersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8944607C24C4C2A400F82D94 /* ChatsHeadersView.swift */; };
 		8944608024C4D45300F82D94 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8944607F24C4D45300F82D94 /* ProfileViewController.swift */; };
+		8944608224E072FC00F82D94 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8944608124E072FC00F82D94 /* UserService.swift */; };
+		8944608424E073FB00F82D94 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8944608324E073FB00F82D94 /* UserInfo.swift */; };
+		89675EBE24F2B1B900A80CEC /* ChooseInterestedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89675EBD24F2B1B900A80CEC /* ChooseInterestedInView.swift */; };
+		89675EC024F2B1E400A80CEC /* ChoiceChipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89675EBF24F2B1E400A80CEC /* ChoiceChipsView.swift */; };
+		89675EC224F2B3C100A80CEC /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89675EC124F2B3C100A80CEC /* ChipView.swift */; };
+		89675EC424F2D57F00A80CEC /* ChoiceGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89675EC324F2D57E00A80CEC /* ChoiceGenderView.swift */; };
+		89675EC624F2D6BB00A80CEC /* ChoiceAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89675EC524F2D6BB00A80CEC /* ChoiceAgeView.swift */; };
 		89ACC81924C0AABC007F6E8D /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ACC81824C0AABC007F6E8D /* ChatsViewController.swift */; };
 		89ACC81B24C0AAFE007F6E8D /* ChatsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ACC81A24C0AAFE007F6E8D /* ChatsScreenInteractor.swift */; };
 		8FF8B353D4D93C17D32D3DB7 /* Pods_SampleChatAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 741A0D4D01C4EBBE1CFA7FD5 /* Pods_SampleChatAppTests.framework */; };
@@ -74,6 +81,13 @@
 		8944607924C49CB500F82D94 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		8944607C24C4C2A400F82D94 /* ChatsHeadersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsHeadersView.swift; sourceTree = "<group>"; };
 		8944607F24C4D45300F82D94 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		8944608124E072FC00F82D94 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		8944608324E073FB00F82D94 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		89675EBD24F2B1B900A80CEC /* ChooseInterestedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseInterestedInView.swift; sourceTree = "<group>"; };
+		89675EBF24F2B1E400A80CEC /* ChoiceChipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceChipsView.swift; sourceTree = "<group>"; };
+		89675EC124F2B3C100A80CEC /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
+		89675EC324F2D57E00A80CEC /* ChoiceGenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceGenderView.swift; sourceTree = "<group>"; };
+		89675EC524F2D6BB00A80CEC /* ChoiceAgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceAgeView.swift; sourceTree = "<group>"; };
 		89ACC81824C0AABC007F6E8D /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		89ACC81A24C0AAFE007F6E8D /* ChatsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenInteractor.swift; sourceTree = "<group>"; };
 		8D7310C39AEC49C84C31E663 /* Pods_SampleChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +165,18 @@
 			name = Profile;
 			sourceTree = "<group>";
 		};
+		89675EBC24F2B1AB00A80CEC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				89675EC124F2B3C100A80CEC /* ChipView.swift */,
+				89675EBF24F2B1E400A80CEC /* ChoiceChipsView.swift */,
+				89675EBD24F2B1B900A80CEC /* ChooseInterestedInView.swift */,
+				89675EC324F2D57E00A80CEC /* ChoiceGenderView.swift */,
+				89675EC524F2D6BB00A80CEC /* ChoiceAgeView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		A61531BD249E52F100CAD6B3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +241,7 @@
 				A6A5B7E424A11EC00000380E /* AuthenticationService.swift */,
 				A6A497FB24CCA1450071CC24 /* ProfileStorageService.swift */,
 				A6DF6B4E24D71299001C1CEF /* ChatService.swift */,
+				8944608124E072FC00F82D94 /* UserService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -242,6 +269,7 @@
 		A6CA5E89249CD93500E10B17 /* SampleChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				89675EBC24F2B1AB00A80CEC /* Views */,
 				A6A497F024CC613B0071CC24 /* GoogleService-Info.plist */,
 				A6D7332924A8C447005F5637 /* Screens */,
 				A6A5B7D0249E857A0000380E /* Flows */,
@@ -301,6 +329,7 @@
 		A6DF6B5024D7135C001C1CEF /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				8944608324E073FB00F82D94 /* UserInfo.swift */,
 				A6DF6B5124D7136F001C1CEF /* ChatsWithUsersResponse.swift */,
 			);
 			name = DTO;
@@ -499,17 +528,22 @@
 				A6CA5E8F249CD93500E10B17 /* LoginViewController.swift in Sources */,
 				A61531BA249CF0FB00CAD6B3 /* StackView+Utils.swift in Sources */,
 				A6A5B7CF249E55AA0000380E /* UIViewController+Utils.swift in Sources */,
+				89675EC024F2B1E400A80CEC /* ChoiceChipsView.swift in Sources */,
 				8944607D24C4C2A400F82D94 /* ChatsHeadersView.swift in Sources */,
 				8944607A24C49CB500F82D94 /* MainRouter.swift in Sources */,
+				89675EC224F2B3C100A80CEC /* ChipView.swift in Sources */,
 				A6DF6B5224D7136F001C1CEF /* ChatsWithUsersResponse.swift in Sources */,
 				8944607824C49C3300F82D94 /* MainAssembly.swift in Sources */,
 				A6A497FA24CC8A310071CC24 /* Sender.swift in Sources */,
 				893D5C9E24C498470093C669 /* ChatScreenMocks.swift in Sources */,
+				89675EBE24F2B1B900A80CEC /* ChooseInterestedInView.swift in Sources */,
 				A6A5B7E524A11EC00000380E /* AuthenticationService.swift in Sources */,
 				A6A5B7D7249E8AA60000380E /* Assembly.swift in Sources */,
 				A6A5B7E1249E90440000380E /* LoginPresenter.swift in Sources */,
+				8944608224E072FC00F82D94 /* UserService.swift in Sources */,
 				A6D7332724A8B304005F5637 /* LoginViewModel.swift in Sources */,
 				A6A497F624CC87A40071CC24 /* Chat.swift in Sources */,
+				89675EC624F2D6BB00A80CEC /* ChoiceAgeView.swift in Sources */,
 				A6D7332E24A8C62A005F5637 /* ProfileInitSetupPresenter.swift in Sources */,
 				A61531B8249CEF3200CAD6B3 /* UIView+Utils.swift in Sources */,
 				893D5C9824C487A40093C669 /* ChatUserCell.swift in Sources */,
@@ -518,7 +552,9 @@
 				8944608024C4D45300F82D94 /* ProfileViewController.swift in Sources */,
 				A6A497F824CC899C0071CC24 /* Message.swift in Sources */,
 				A6A5B7D9249E8ABD0000380E /* LoginRouter.swift in Sources */,
+				8944608424E073FB00F82D94 /* UserInfo.swift in Sources */,
 				A6DF6B4F24D71299001C1CEF /* ChatService.swift in Sources */,
+				89675EC424F2D57F00A80CEC /* ChoiceGenderView.swift in Sources */,
 				A6A5B7DB249E8CAD0000380E /* LoginAssembly.swift in Sources */,
 				893D5C9624C4854D0093C669 /* ChatsViewControllerPresenter.swift in Sources */,
 				A6A5B7DF249E8F450000380E /* LoginInteractor.swift in Sources */,
@@ -613,7 +649,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -667,7 +703,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
