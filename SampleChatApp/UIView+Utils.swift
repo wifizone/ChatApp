@@ -11,7 +11,8 @@ import UIKit
 // MARK: - Constraints
 
 extension UIView {
-	func disableMasks() -> Self {
+    @discardableResult
+    func disableMasks() -> Self {
         self.translatesAutoresizingMaskIntoConstraints = false
         return self
     }

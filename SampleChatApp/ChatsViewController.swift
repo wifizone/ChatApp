@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChatsViewControllable: AnyObject {
     func update(model: Result<ChatsScreenViewModel.Chats, Error>)
+    func alert(text: String)
 }
 
 final class ChatsViewController: UIViewController {
@@ -26,6 +27,8 @@ final class ChatsViewController: UIViewController {
         tableView.separatorStyle = .none
         return tableView
     }()
+
+    private let activityIndicator = UIActivityIndicatorView().disableMasks()
     
     init(interactor: ChatsScreenInteracting) {
         self.interactor = interactor
@@ -43,11 +46,12 @@ final class ChatsViewController: UIViewController {
 
     private func setupView() {
         view.backgroundColor = .white
-        view.addSubview(tableView)
+        view.addSubviews([tableView, activityIndicator])
     }
 
     private func setupConstraints() {
         tableView.pin(to: .all, of: view, respectingSafeArea: true)
+        activityIndicator.pin(to: .all, of: view, respectingSafeArea: true)
     }
 }
 
@@ -62,9 +66,17 @@ extension ChatsViewController: ChatsViewControllable {
             break
         }
     }
+
+    func alert(text: String) {
+        self.showAlert(for: text)
+    }
 }
 
-extension ChatsViewController: UITableViewDelegate {}
+extension ChatsViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		interactor.didSelectChat()
+	}
+}
 
 extension ChatsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
