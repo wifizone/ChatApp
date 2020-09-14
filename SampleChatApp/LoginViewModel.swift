@@ -6,6 +6,8 @@
 //  Copyright © 2020 anton.poluianov. All rights reserved.
 //
 
+import FirebaseAuth
+
 struct LoginViewModel {
 
 	struct Registration {
@@ -19,7 +21,7 @@ struct LoginViewModel {
 
 	struct Login {
 		/// dummy
-		let email: String
+		let user: User
 	}
 
 	enum LoginError: Error {

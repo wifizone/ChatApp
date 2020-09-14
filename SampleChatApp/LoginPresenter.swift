@@ -33,7 +33,7 @@ extension LoginPresenter: LoginPresentable {
 	func didFinishRegistration(isRegistered: Result<LoginModel.User, RegistrationError>) {
 		switch isRegistered {
 		case let .success(model):
-			viewController?.showUpdate(update: .success(LoginViewModel.Registration(email: model.email)))
+			viewController?.showUpdate(update: .success(LoginViewModel.Registration(email: model.user.email ?? "")))
 		case let .failure(error):
 			switch error {
 			case .serverError:
@@ -47,7 +47,7 @@ extension LoginPresenter: LoginPresentable {
 	func didFinishLogin(isLoggedIn: Result<LoginModel.User, LoginError>) {
 		switch isLoggedIn {
 		case let .success(model):
-			viewController?.showUpdate(update: .success(LoginViewModel.Login(email: model.email)))
+			viewController?.showUpdate(update: .success(LoginViewModel.Login(user: model.user)))
 		case let .failure(error):
 			switch error {
 			case .serverError:

@@ -6,23 +6,21 @@
 //  Copyright © 2020 anton.poluianov. All rights reserved.
 //
 
+import FirebaseAuth
+
 protocol LoginInteracting: AnyObject {
 	func didTapRegister(email: String?, password: String?)
 	func didTapLogin(email: String?, password: String?)
-	func didFinishLogin()
 }
 
 final class LoginInteractor {
 	private let presenter: LoginPresentable
-	private let router: LoginRouting?
 	private let validationService: UserInputValidatorProtocol
 	private let authenticationService: AuthenticationLogic
 
-	init(router: LoginRouting?,
-		 presenter: LoginPresentable,
+	init(presenter: LoginPresentable,
 		 validationService: UserInputValidatorProtocol,
 		 authenticationService: AuthenticationLogic) {
-		self.router = router
 		self.presenter = presenter
 		self.validationService = validationService
 		self.authenticationService = authenticationService
@@ -80,9 +78,5 @@ extension LoginInteractor: LoginInteracting {
 				self?.presenter.didFinishLogin(isLoggedIn: .failure(.serverError))
 			}
 		}
-	}
-
-	func didFinishLogin() {
-		router?.routeToProfileInitSetup()
 	}
 }

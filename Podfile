@@ -6,8 +6,9 @@ target 'SampleChatApp' do
   use_frameworks!
 
   # Pods for SampleChatApp
-  pod ‘Firebase/Auth’
-  pod ‘Firebase/Firestore’
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
   pod 'FirebaseFirestoreSwift'
   pod 'MessageKit'
   pod 'Kingfisher'

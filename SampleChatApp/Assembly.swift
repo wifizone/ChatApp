@@ -17,5 +17,5 @@ final class Assembly {
 	}
 
 	lazy var login = LoginAssembly(authenticationService: authenticationService)
-    lazy var main = MainAssembly()
+    lazy var main = MainAssembly(authenticationService: authenticationService)
 }

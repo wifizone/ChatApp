@@ -8,8 +8,14 @@
 
 import Foundation
 
+enum ChatScreenError {
+    case chatsNotLoaded
+}
+
 protocol ChatsScreenPresentable {
-    func didLoad(chatModels: ChatsScreenViewModel.Chats)
+    func getUserIds(chatModels: ChatsWithUsersResponse.Chats) -> [UUID]
+    func didLoad(chatUsers: [UserInfo])
+    func showAlert(error: ChatScreenError)
 }
 
 final class ChatsViewControllerPresenter {
@@ -17,7 +23,36 @@ final class ChatsViewControllerPresenter {
 }
 
 extension ChatsViewControllerPresenter: ChatsScreenPresentable {
-    func didLoad(chatModels: ChatsScreenViewModel.Chats) {
-        viewController?.update(model: .success(chatModels))
+    func getUserIds(chatModels: ChatsWithUsersResponse.Chats) -> [UUID] {
+        let chats = chatModels.chats
+        var ids = [UUID]()
+        chats.forEach({
+            ids.append($0.userID)
+        })
+        return ids
+    }
+    
+    func didLoad(chatUsers: [UserInfo]) {
+        let chats: [ChatsScreenViewModel.ChatWithUser] = chatUsers.map({
+            guard let id = UUID(uuidString: $0.id),
+                let name = $0.displayName,
+                let photoURL = $0.photoURL else {
+                    return nil
+            }
+            return ChatsScreenViewModel.ChatWithUser(userID: id,
+                                                     name: name,
+                                                     lastMessage: "hmmm",
+                                                     avatarURL: photoURL,
+                                                     time: "12:30",
+                                                     numberOfUnreadMessages: 0)
+        }).compactMap({ $0 })
+        viewController?.update(model: .success(ChatsScreenViewModel.Chats(chats: chats)))
+    }
+
+    func showAlert(error: ChatScreenError) {
+        switch error {
+        case .chatsNotLoaded:
+            viewController?.alert(text: "Error loading chats")
+        }
     }
 }

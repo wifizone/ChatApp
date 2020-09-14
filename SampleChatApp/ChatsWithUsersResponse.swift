@@ -1,16 +1,15 @@
 //
-//  ChatsScreenViewModel.swift
+//  ChatsWithUsersResponse.swift
 //  SampleChatApp
 //
-//  Created by Антон Полуянов on 19.07.2020.
+//  Created by Anton Poluianov on 02.08.2020.
 //  Copyright © 2020 anton.poluianov. All rights reserved.
 //
 
 import Foundation
 
-struct ChatsScreenViewModel {
-
-    struct Chats {
+struct ChatsWithUsersResponse {
+	struct Chats {
         var chats = [ChatWithUser]()
     }
 
@@ -18,9 +17,6 @@ struct ChatsScreenViewModel {
     struct ChatWithUser {
 		let userID: UUID
         let name: String
-        let lastMessage: String
         let avatarURL: URL?
-        let time: String
-        let numberOfUnreadMessages: UInt
     }
 }
