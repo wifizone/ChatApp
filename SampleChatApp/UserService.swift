@@ -15,6 +15,8 @@ enum UserServiceError: Error {
     case userNotFound
     case retrievingUser
     case profileNotComplete
+    case addingFriend
+    case addingProfilePhoto
     case noId
 }
 
@@ -24,6 +26,8 @@ protocol UserServiceProtocol: AnyObject {
     func getUserProfile(id: String, completion: @escaping (Result<UserInfo, UserServiceError>) -> Void)
     func getUserProfiles(ids: [String], completion: @escaping (Result<[UserInfo], UserServiceError>) -> Void)
     func isUserProfileFull(user: User, completion: @escaping (Result<Bool, UserServiceError>) -> Void)
+    func addFriend(id:String, user: User, completion: @escaping (UserServiceError?) -> Void)
+    func addProfilePhoto(photo: URL, user: User, completion: @escaping (UserServiceError?) -> Void)
 }
 
 final class UserService: UserServiceProtocol {
@@ -34,6 +38,8 @@ final class UserService: UserServiceProtocol {
     private static let genderField = "gender"
     private static let ageField = "age"
     private static let partnerInterestsField = "partnerInterests"
+    private static let friendsField = "friends"
+    private static let photosField = "photos"
     private static let isCompleteProfileField = "isComplete"
 
     private var usersCollection = Firestore.firestore().collection("User")
@@ -143,5 +149,29 @@ final class UserService: UserServiceProtocol {
                 completion(.success(false))
             }
         })
+    }
+
+    func addFriend(id: String, user: User, completion: @escaping (UserServiceError?) -> Void) {
+        usersCollection.document(user.uid).updateData([
+            Self.friendsField : FieldValue.arrayUnion([id])
+        ]) { error in
+            guard error == nil else {
+                completion(.addingFriend)
+                return
+            }
+            completion(nil)
+        }
+    }
+
+    func addProfilePhoto(photo: URL, user: User, completion: @escaping (UserServiceError?) -> Void) {
+        usersCollection.document(user.uid).updateData([
+            Self.photosField : FieldValue.arrayUnion([photo.absoluteString])
+        ]) { error in
+            guard error == nil else {
+                completion(.addingProfilePhoto)
+                return
+            }
+            completion(nil)
+        }
     }
 }
