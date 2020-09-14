@@ -11,10 +11,12 @@ import FirebaseAuth
 
 enum StorageError: Error {
 	case failedToUploadAvatar
+    case failedToUploadPhoto
 }
 
 protocol ProfileStorageServiceProtocol: AnyObject {
 	func store(avatarImage: Data, for user: User, completion: @escaping (Result<URL, StorageError>) -> Void)
+    func store(photo: Data, for user: User, completion: @escaping (Result<URL, StorageError>) -> Void)
 }
 
 final class ProfileStorageService: ProfileStorageServiceProtocol {
@@ -39,4 +41,24 @@ final class ProfileStorageService: ProfileStorageServiceProtocol {
 			}
 		}
 	}
+
+    func store(photo: Data, for user: User, completion: @escaping (Result<URL, StorageError>) -> Void) {
+        let userId = user.uid
+        let photoId = UUID().uuidString
+        let photoRef = storage.reference().child("users/\(userId)/\(photoId).jpg")
+        photoRef.putData(photo, metadata: nil) { (metadata, error) in
+            guard metadata != nil else {
+                completion(.failure(.failedToUploadAvatar))
+                return
+            }
+            // You can also access to download URL after upload.
+            photoRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {
+                    completion(.failure(.failedToUploadPhoto))
+                    return
+                }
+                completion(.success(downloadURL))
+            }
+        }
+    }
 }
